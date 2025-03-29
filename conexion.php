@@ -1,6 +1,10 @@
 <?php
 date_default_timezone_set("America/Bogota");
 
+//$server = "sql103.infinityfree.com";
+//$user = "if0_38633668";
+//$pass = "81PSLoQpvXi1";
+//$db = "if0_38633668_gabrica";
 $server = "localhost";
 $user = "root";
 $pass = "";
