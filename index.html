@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navidad Gabrica</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="left-section">
+            <h1><span class="highlight"></span><br></h1>
+            <p class="subtext"><span class="navideño"></span></p>
+        </div>
+        <div class="right-section">
+            <div class="form-container" id="formulario">
+                <h2>1. Inscripción punto de venta</h2>
+                <form id="inscripcionForm">
+                    <input type="text" id="nombrecliente" name="nombre_cliente" placeholder="Nombre del cliente" required>
+                    <span class="error" id="errorNombre"></span>
+
+                    <input type="text" id="nit" name="nit" placeholder="NIT" required>
+                    <span class="error" id="errorNIT"></span>
+
+                    <input type="text" name="nombre_punto" placeholder="Nombre del punto">
+                    <input type="text" name="nombre_equipo" placeholder="Nombre del equipo">
+                    
+                    <select id="ciudad" name="ciudad" required>
+                        <option value="">Seleccione una Ciudad</option>
+                        <option value="Cali">Cali</option>
+                        <option value="Medellín">Medellín</option>
+                        <option value="Bogotá">Bogotá</option>
+                    </select>
+
+                    <input type="text" name="promotor" placeholder="Promotor">
+
+                    <input type="text" id="rtc" name="rtc" placeholder="RTC" required>
+                    <span class="error" id="errorRTC"></span>
+
+                    <input type="text" name="capitan_usuario" placeholder="Capitán y/o Usuario (Solo minúsculas)">
+
+                    <div class="terms">
+                        <input type="checkbox" id="checkdatos" name="acepta_datos" value="1"> 
+                        <label for="checkdatos">He leído y acepto las políticas de Tratamiento de Datos Personales</label>
+                    </div>
+                    <span class="error" id="errorCheck"></span>
+
+                    <button type="submit">Siguiente</button>
+                </form>
+            </div>
+
+            <div id="mensajeGracias" style="display: none; text-align: center;">
+                <h2>¡Gracias por registrarte!</h2>
+                <p>Tu información ha sido enviada correctamente.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("inscripcionForm").addEventListener("submit", function(event) {
+            event.preventDefault(); 
+
+            let valid = true;
+            let formData = new FormData(this);
+
+            // Validación de Nombre del Cliente
+            let nombreCliente = document.getElementById("nombrecliente").value;
+            if (!/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/.test(nombreCliente)) {
+                document.getElementById("errorNombre").innerText = "Solo se permiten letras y espacios.";
+                valid = false;
+            } else {
+                document.getElementById("errorNombre").innerText = "";
+            }
+
+            // Validación de NIT
+            let nit = document.getElementById("nit").value;
+            if (nit.trim() === "") {
+                document.getElementById("errorNIT").innerText = "El NIT es obligatorio.";
+                valid = false;
+            } else {
+                document.getElementById("errorNIT").innerText = "";
+            }
+
+            // Validación de RTC (Solo números)
+            let rtc = document.getElementById("rtc").value;
+            if (!/^\d+$/.test(rtc)) {
+                document.getElementById("errorRTC").innerText = "Solo se permiten números.";
+                valid = false;
+            } else {
+                document.getElementById("errorRTC").innerText = "";
+            }
+
+            // Validación del Check de tratamiento de datos
+            let check = document.getElementById("checkdatos").checked;
+            if (!check) {
+                document.getElementById("errorCheck").innerText = "Debe aceptar las políticas.";
+                valid = false;
+            } else {
+                document.getElementById("errorCheck").innerText = "";
+            }
+
+            // Validación de caracteres prohibidos (#, ¿?, ,)
+            let campos = document.querySelectorAll("input[type='text'], select");
+            campos.forEach(campo => {
+                if (/[#¿?,]/.test(campo.value)) {
+                    campo.value = campo.value.replace(/[#¿?,]/g, "");
+                }
+            });
+
+            if (!valid) return;
+
+            // Capturar fecha y hora
+            let fecha = new Date();
+            formData.append("fecha", fecha.toISOString().split("T")[0]);
+            formData.append("hora", fecha.toTimeString().split(" ")[0]);
+
+            // Obtener IP
+            fetch("https://api64.ipify.org?format=json")
+                .then(response => response.json())
+                .then(data => {
+                    formData.append("ip", data.ip);
+
+                    // Enviar datos
+                    return fetch("conexion.php", {
+                        method: "POST",
+                        body: formData
+                    });
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === "success") {
+                        document.getElementById("formulario").style.display = "none";
+                        document.getElementById("mensajeGracias").style.display = "block";
+                    } else {
+                        alert("Error: " + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    alert("Hubo un problema al enviar el formulario.");
+                });
+        });
+    </script>
+</body>
+</html>

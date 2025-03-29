@@ -1,0 +1,176 @@
+body {
+    background: url('img/imgnavidad.jpg') no-repeat center center fixed;
+    background-size: 100% 100%; /* Ajusta la imagen al tamaño de la pantalla */
+    background-position: center;
+    background-attachment: fixed;
+    font-family: Arial, sans-serif;
+    color: white;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 130%;
+}
+
+.error {
+    color: red;  /* Hace que el texto sea rojo */
+    font-size: 14px; /* Tamaño de fuente */
+    margin-top: 5px;
+    display: block;
+    font-weight: bold; /* Opcional: hace el texto más visible */
+}
+
+input[type="text"],
+select {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+    color: #333;
+    box-sizing: border-box;
+}
+
+input[type="text"]:focus,
+select:focus {
+    border-color: #6200ea;
+    outline: none;
+}
+
+.login-button {
+    background: #00c3ff;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.login-button:hover {
+    background: #008ac1;
+}
+select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+    color: #333;
+    appearance: none; /* Elimina el estilo nativo del navegador color: #333;*/
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+select:focus {
+    border-color: #6200ea;
+    outline: none;
+}
+.container {
+    display: flex;
+    max-width: 900px;
+    width: 90%;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.left-section {
+    text-align: center;
+    width: 100%;
+    padding: 20px;
+}
+
+.left-section h1 {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.highlight {
+    color: #00c3ff;
+}
+
+.navideño {
+    font-style: italic;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.terms {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Espacio entre el checkbox y el texto */
+    font-size: 14px;
+}
+
+.terms input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+.christmas-image {
+    max-width: 100%;
+    height: auto;
+}
+
+.right-section {
+    background: white;
+    color: black;
+    padding: 20px;
+    border-radius: 10px;
+    width: 100%;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    max-width: 400px;
+    margin: auto;
+}
+
+.form-container h2 {
+    color: #59108a;
+    font-size: 1.2rem;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.terms {
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+}
+
+button {
+    background: #59108a;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #3e036f;
+}
+
+@media (min-width: 768px) {
+    .container {
+        flex-wrap: nowrap;
+    }
+    .left-section {
+        width: 50%;
+    }
+    .right-section {
+        width: 40%;
+    }
+}
